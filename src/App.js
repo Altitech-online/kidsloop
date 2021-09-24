@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Routes from "./Routes";
+import PageContainer from "./components/PageContainer/PageContainer";
+import Footer from "./components/Footer/Footer";
+import { AppContainer } from "./styles";
+import { AppContext } from "./helpers/appContext";
+import { ThemeProvider } from "styled-components";
+import { dark, light } from "./themes";
+import { getSession } from "./helpers/session";
 
 function App() {
+  const [darkTheme, setDarkTheme] = useState(getSession("theme", false));
+  const [language, setLanguage] = useState(getSession("language", "English"));
+  const [user, setUser] = useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeProvider theme={darkTheme ? dark : light}>
+      <AppContainer className="App">
+        <AppContext.Provider
+          value={{
+            darkTheme,
+            setDarkTheme,
+            language,
+            setLanguage,
+            user,
+            setUser,
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <PageContainer>
+            <Routes />
+            <Footer />
+          </PageContainer>
+        </AppContext.Provider>
+      </AppContainer>
+    </ThemeProvider>
   );
 }
 
