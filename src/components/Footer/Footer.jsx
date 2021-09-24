@@ -21,7 +21,7 @@ export default function Footer() {
 
   const setTheme = () => {
     setDarkTheme(!darkTheme);
-    setSession({ theme: !darkTheme, language: language });
+    setSession({ theme: !darkTheme, language });
   };
   const selectLanguage = (language) => {
     setLanguage(language);

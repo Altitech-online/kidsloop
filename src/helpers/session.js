@@ -21,5 +21,7 @@ export const getSession = (stateItem, defaultState) => {
     } else {
       return sessionData.value.sessionItem[stateItem];
     }
+  } else {
+    return defaultState;
   }
 };
